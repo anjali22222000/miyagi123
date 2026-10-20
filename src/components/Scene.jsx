@@ -1,0 +1,16 @@
+import React,{useState,useEffect,useMemo,createElement as h} from "react";
+import {P} from "../data/seed.js";
+import {Corporate} from "../pages/PublicPages.jsx";
+
+export const KS=["stage","crowd","group","team"],kp=s=>KS[s.length%4],kb=p=>["portrait","abstract","stage","group"][p.title.length%4],ke=e=>({Conference:"stage",Workshop:"group",Retreat:"team",Tour:"crowd","College Session":"stage",Corporate:"team","Personal Growth":"group"}[e.cat]||"crowd");
+export const Scene=({k="stage",c="#183D32",alt,v=0})=>{const D="#0d211a",L="#F8F5EF",O="#FBB03B",P=[],add=n=>P.push(n);
+const hd=(x,y,r,f,i)=>h("g",{key:"h"+i},h("circle",{cx:x,cy:y,r,fill:f}),h("path",{d:"M"+(x-r*1.6)+" "+(y+r*3.4)+"Q"+x+" "+(y+r*.9)+" "+(x+r*1.6)+" "+(y+r*3.4)+"Z",fill:f}));
+const R=(key,x,y,w,hh,fill,o)=>h("rect",{key,x,y,width:w,height:hh,fill,opacity:o});
+add(R("bg",0,0,800,500,"#111"));add(h("polygon",{key:"sp",className:"beam",points:"400,-10 120,500 680,500",fill:L,opacity:k==="stage"?.16:.07}));
+if(k==="stage"){add(R("s1",200,50,400,120,"#fff",.08));add(R("s2",230,80,180,10,O));add(R("s3",230,105,280,6,"#fff",.25));add(R("s4",230,125,220,6,"#fff",.25));add(R("stg",0,360,800,140,D,.5));add(hd(400,225,24,L,"sp"));add(R("lec",368,318,64,70,O));for(let j=0;j<12;j++)add(hd(30+j*68,440,22+j%3*2,D,"a"+j));for(let j=0;j<11;j++)add(hd(64+j*68,495,24,"#081811","b"+j))}
+else if(k==="crowd"){add(R("s1",250,40,300,90,"#fff",.1));add(R("s2",280,65,140,10,O));for(let r=0;r<3;r++)for(let j=0;j<10;j++)add(hd(40+j*80+r%2*40,240+r*75,19+r*3,r==1&&j==4?O:[D,"#0a1a14","#06120d"][r],"c"+r+j))}
+else if(k==="group"){add(h("ellipse",{key:"t",cx:400,cy:300,rx:190,ry:70,fill:O}));for(let i=0;i<6;i++){const a=i*Math.PI/3+.5;add(hd(400+Math.cos(a)*250,235+Math.sin(a)*105,26,i%2?L:D,"g"+i))}}
+else if(k==="team"){add(R("b",120,60,560,150,"#fff",.09));add(R("b2",150,90,200,10,O));add(R("b3",150,115,330,6,"#fff",.25));for(let i=0;i<4;i++)add(hd(160+i*160,250,32,i%2?"#e7d9c8":L,"t"+i));add(R("d",0,372,800,128,D,.7))}
+else if(k==="portrait"){const sk=["#e0b48f","#c68863","#8d5a3b","#f1cfae","#a8704a","#d9a47c"][v%6],hr=["#1b1410","#2b1d14","#0d0d0d","#6b4a2e","#3a3a3a","#1b1410"][v%6],sh=[D,"#2f4f43",O,"#34495e","#5b3a29","#252824"][v%6];add(h("circle",{key:"o",cx:400,cy:250,r:200,fill:v%2?"#DDE5D9":O,opacity:.9}));if(v%3==1)add(h("ellipse",{key:"hb",cx:400,cy:270,rx:92,ry:120,fill:hr}));add(h("path",{key:"sh",d:"M150 500Q170 330 400 320Q630 330 650 500Z",fill:sh}));add(h("rect",{key:"nk",x:370,y:290,width:60,height:50,fill:sk}));add(h("path",{key:"cl",d:"M365 325L400 395L435 325Z",fill:L}));add(h("ellipse",{key:"hd",cx:400,cy:225,rx:70,ry:86,fill:sk}));add(h("path",{key:"hr",d:"M326 225Q324 128 400 128Q476 128 474 225Q448 172 400 176Q352 172 326 225Z",fill:hr}))}
+else{for(let i=1;i<6;i++)add(h("circle",{key:"r"+i,cx:560,cy:250,r:i*55,fill:"none",stroke:i%2?O:L,opacity:.35,strokeWidth:2}));add(R("l1",70,170,300,14,L,.8));add(R("l2",70,210,220,14,O));add(R("l3",70,250,260,8,L,.3))}
+return h("svg",{className:"art",viewBox:"0 0 800 500",preserveAspectRatio:"xMidYMid slice",role:alt?"img":undefined,"aria-label":alt,"aria-hidden":alt?undefined:true},h("g",{transform:v%2&&k!=="portrait"?"translate(800 0) scale(-1 1)":undefined},P))};

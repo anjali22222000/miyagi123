@@ -1,0 +1,14 @@
+import React,{useState,createElement as h} from "react";
+import {Logo} from "./Brand.jsx";
+import {A} from "./ui.jsx";
+import {mem,isPast,byDate,fd} from "../data/store.js";
+
+const SOC=[["Instagram","https://instagram.com","M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"],["LinkedIn","https://linkedin.com","M4 9h4v11H4zM6 3.5a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4zM10 9h3.8v1.6c.6-1 1.9-1.9 3.8-1.9 4 0 4.4 2.6 4.4 6V20h-4v-4.8c0-1.2-.5-2.7-1.7-2.7S14 13.8 14 15.2V20h-4z"],["YouTube","https://youtube.com","M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12s0-3.2-.4-4.8zM10 15V9l5.2 3z"]];
+export function Foot(){const[em,se]=useState(""),[er,ser]=useState(""),[ok,sok]=useState(false);
+const up=mem.events.filter(e=>e.pub&&!isPast(e)).sort(byDate).slice(0,3);
+return h("footer",{className:"ft"},h("div",{className:"wrap"},h("div",{className:"grid"},
+h("div",null,h(Logo,{height:60}),h("p",{style:{opacity:.75,maxWidth:300,marginTop:14}},"Motivational speaker and events brand helping people speak with clarity and lead with courage."),h("div",{className:"soc"},SOC.map(([n,u,d])=>h("a",{key:n,href:u,target:"_blank",rel:"noopener noreferrer","aria-label":n},h("svg",{width:18,height:18,viewBox:"0 0 24 24",fill:"currentColor","aria-hidden":true},h("path",{d})))))),
+h("div",null,h("h3",{className:"fh"},"Explore"),[["/","Home"],["/about","About"],["/team","Team"],["/programs","Programs"],["/corporate","Corporate"],["/events","Events"],["/blog","Blog"],["/contact","Contact"]].map(([t,l])=>A(t,{key:t},l))),
+h("div",null,h("h3",{className:"fh"},"Upcoming"),up.map(e=>A("/events/"+e.id,{key:e.id},e.title+" · "+fd(e.date))),A("/contact",{style:{color:"var(--a)"}},"Event enquiries →")),
+h("div",null,h("h3",{className:"fh"},"Newsletter"),ok?h("p",{role:"status",className:"okbox",style:{color:"#000"}},"Subscribed (demo). Thank you!"):h("form",{noValidate:true,onSubmit:x=>{x.preventDefault();if(!/^\S+@\S+\.\S+$/.test(em))return ser("Enter a valid email");ser("");sok(true)}},h("div",{className:"nl"},h("input",{"aria-label":"Email for newsletter",placeholder:"you@email.com",value:em,onChange:x=>se(x.target.value)}),h("button",{className:"btn sm"},"Join")),er&&h("small",{role:"alert",style:{color:"#ffb4a9"}},er)),h("p",{style:{opacity:.7,fontSize:".88rem",marginTop:14}},"hello@miyagi.demo",h("br"),"+91 98765 43210 (demo)",h("br"),"Gurugram, Haryana"))),
+h("p",{style:{opacity:.55,fontSize:".8rem",marginTop:40}},"© "+new Date().getFullYear()+" Miyagi — The Communication Champ. Demo website: sample content only; payments are simulated. ",A("/admin",{style:{display:"inline"}},"Admin"))))}
